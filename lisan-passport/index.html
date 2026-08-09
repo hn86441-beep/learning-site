@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>جواز سفر اللغوي</title>
+<meta name="description" content="جواز سفر اللغوي — موقع تفاعلي لإتقان العربية والإنجليزية والإسبانية والروسية عبر بطاقات واختبارات وأختام إنجاز." />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="starfield"></div>
+  <div class="app">
+
+    <!-- ============ شاشة الغلاف ============ -->
+    <section id="cover-screen">
+      <div class="emblem"><span>ل</span></div>
+      <div class="cover-eyebrow">Faculty of Al-Alsun · كلية الألسن</div>
+      <h1 class="cover-title">جواز سفر اللغوي</h1>
+      <p class="cover-sub">
+        رحلة يومية بين أربع لغات: كلمة، بطاقة، اختبار، وختم جديد في كل مرة.
+        اختر الوجهة التي تريد السفر إليها اليوم.
+      </p>
+
+      <div class="lang-picker">
+        <button class="lang-stamp-btn" data-lang="en">
+          <span class="native">English</span>
+          <span class="arabic-name">الإنجليزية</span>
+        </button>
+        <button class="lang-stamp-btn" data-lang="es">
+          <span class="native">Español</span>
+          <span class="arabic-name">الإسبانية</span>
+        </button>
+        <button class="lang-stamp-btn" data-lang="ru">
+          <span class="native">Русский</span>
+          <span class="arabic-name">الروسية</span>
+        </button>
+        <button class="lang-stamp-btn" data-lang="ar">
+          <span class="native">العربية</span>
+          <span class="arabic-name">الفصحى</span>
+        </button>
+      </div>
+
+      <div class="cover-footer">صُمم بشغف لطالب/ة الألسن — جامعة عين شمس</div>
+    </section>
+
+    <!-- ============ شاشة صفحة اللغة ============ -->
+    <section id="lang-screen">
+      <div class="passport-page">
+
+        <div class="page-header">
+          <button class="back-btn" id="back-to-cover">→ العودة للغلاف</button>
+          <div class="page-title-block">
+            <div class="lang-native" id="lang-native"></div>
+            <h1 id="lang-title"></h1>
+          </div>
+          <div class="streak-badge">🔥 سلسلة <span id="streak-count">0</span> يوم</div>
+        </div>
+
+        <div class="welcome-strip" id="welcome-line"></div>
+
+        <div class="mastery-bar-wrap">
+          <div class="mastery-bar-track"><div class="mastery-bar-fill" id="mastery-fill" style="width:0%"></div></div>
+          <div class="mastery-label" id="mastery-label"></div>
+        </div>
+
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="wod">كلمة اليوم</button>
+          <button class="tab-btn" data-tab="flash">البطاقات</button>
+          <button class="tab-btn" data-tab="quiz">اختبار سريع</button>
+          <button class="tab-btn" data-tab="mywords">أضف كلمتك</button>
+        </div>
+
+        <!-- كلمة اليوم -->
+        <div class="tab-panel active" id="panel-wod">
+          <div class="word-of-day" id="word-of-day"></div>
+        </div>
+
+        <!-- البطاقات -->
+        <div class="tab-panel" id="panel-flash">
+          <div class="flash-wrap">
+            <div class="flash-progress" id="flash-progress"></div>
+            <div class="flashcard" id="flashcard">
+              <div class="flashcard-inner">
+                <div class="flash-face front" id="flash-front"></div>
+                <div class="flash-face back" id="flash-back"></div>
+              </div>
+            </div>
+            <div class="flash-controls">
+              <button class="pill-btn secondary" id="btn-again">أعِد لاحقًا</button>
+              <button class="pill-btn success" id="btn-know">أتقنتها ✓</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- الاختبار -->
+        <div class="tab-panel" id="panel-quiz">
+          <div class="quiz-box" id="quiz-box"></div>
+        </div>
+
+        <!-- أضف كلمتك -->
+        <div class="tab-panel" id="panel-mywords">
+          <form class="add-word-form" id="add-word-form">
+            <input type="text" id="mw-word" placeholder="الكلمة الجديدة" required />
+            <input type="text" id="mw-meaning" placeholder="المعنى بالعربية" required />
+            <textarea id="mw-example" placeholder="جملة توضيحية (اختياري)" rows="2"></textarea>
+            <button type="submit" class="pill-btn">إضافة إلى قاموسي</button>
+          </form>
+          <div class="my-words-list" id="my-words-list"></div>
+        </div>
+
+        <!-- الأختام -->
+        <div class="stamps-section">
+          <h3>أختام الرحلة</h3>
+          <div class="stamps-grid" id="stamps-grid"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <footer class="site-footer">جواز سفر اللغوي · مشروع شخصي مفتوح المصدر</footer>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
