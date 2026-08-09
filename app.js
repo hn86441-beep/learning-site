@@ -68,6 +68,8 @@ function openLanguage(lang) {
   renderWordOfDay();
   setupFlashcards();
   setupQuiz();
+  setupTranslationLab();
+  renderEtymology();
   renderMyWords();
   renderStamps();
   renderMastery();
@@ -229,6 +231,59 @@ function deleteMyWord(i) {
   s.myWords.splice(i, 1);
   saveState();
   renderMyWords();
+}
+
+/* ---------- زاوية المترجم ---------- */
+let translationIndex = 0;
+function setupTranslationLab() {
+  translationIndex = 0;
+  renderTranslationLab();
+}
+function renderTranslationLab() {
+  const list = TRANSLATION_LAB[currentLang];
+  const item = list[translationIndex];
+  const box = document.getElementById("translation-box");
+  box.innerHTML = `
+    <div class="tlab-progress">جملة ${translationIndex + 1} من ${list.length} — من ${item.source_lang} إلى ${item.target_lang}</div>
+    <div class="tlab-source">${item.source}</div>
+    <textarea id="tlab-input" class="tlab-input" placeholder="اكتب ترجمتك الخاصة هنا أولًا قبل الاطّلاع على المقترح..." rows="3"></textarea>
+    <div class="flash-controls">
+      <button class="pill-btn secondary" id="tlab-skip">التالي بدون مقارنة</button>
+      <button class="pill-btn" id="tlab-reveal">قارن بالترجمة المقترحة</button>
+    </div>
+    <div class="tlab-model" id="tlab-model" hidden>
+      <div class="tlab-model-row"><strong>الترجمة المقترحة:</strong> ${item.model}</div>
+      <div class="tlab-technique">تقنية الترجمة: <span>${item.technique}</span></div>
+      <div class="tlab-note">${item.note}</div>
+      <button class="pill-btn success" id="tlab-next">الجملة التالية →</button>
+    </div>
+  `;
+  document.getElementById("tlab-reveal").addEventListener("click", () => {
+    document.getElementById("tlab-model").hidden = false;
+  });
+  document.getElementById("tlab-skip").addEventListener("click", () => advanceTranslation());
+  const nextBtn = document.getElementById("tlab-next");
+  if (nextBtn) nextBtn.addEventListener("click", () => advanceTranslation(true));
+}
+function advanceTranslation(counted) {
+  if (counted) maybeAwardStamp();
+  translationIndex = (translationIndex + 1) % TRANSLATION_LAB[currentLang].length;
+  renderTranslationLab();
+}
+
+/* ---------- جذور وروابط ---------- */
+function renderEtymology() {
+  const list = ETYMOLOGY[currentLang] || [];
+  const wrap = document.getElementById("etymology-grid");
+  if (!list.length) { wrap.innerHTML = `<div class="no-stamps">لا توجد بيانات أصول متاحة لهذه اللغة بعد.</div>`; return; }
+  wrap.innerHTML = list.map((item) => `
+    <div class="etym-card">
+      <div class="etym-word">${item.word}</div>
+      <div class="etym-arrow">${item.path}</div>
+      <div class="etym-root">الأصل/الرابط: <strong>${item.root}</strong></div>
+      <div class="etym-note">${item.note}</div>
+    </div>
+  `).join("");
 }
 
 /* ---------- الأختام / الإنجاز ---------- */
